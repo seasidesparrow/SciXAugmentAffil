@@ -58,7 +58,7 @@ class AffilData(Base):
     affil_id = Column(String(6), primary_key=True, unique=False, nullable=False)
     affil_string = Column(Text, unique=True, nullable=False)
     norm_string = Column(Text, primary_key=True, unique=False, nullable=False)
-    flagged = Column(Boolean, default=False, nullable=False)
+    flagged_multi = Column(Boolean, default=False, nullable=False)
     created = Column(DateTime, default=get_date, nullable=False)
     updated = Column(DateTime, onupdate=get_date, nullable=False)
 

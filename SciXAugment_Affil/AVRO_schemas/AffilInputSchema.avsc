@@ -1,0 +1,1867 @@
+{
+  "$data_model_vesion": "VERSION_STRING",
+  "type": "record",
+  "name": "ingest_data_model",
+  "fields": [
+    {
+      "name": "recordData",
+      "type": [
+        {
+          "type": "record",
+          "name": "recordDataRecord",
+          "fields": [
+            {
+              "name": "createdTime",
+              "type": [
+                "string"
+              ],
+              "doc": "Timestamp for when the metadata was harvested (e.g. file created timestamp)"
+            },
+            {
+              "name": "dataType",
+              "type": [
+                "string"
+              ],
+              "doc": "Data set, bib data, etc."
+            },
+            {
+              "name": "loadType",
+              "type": [
+                {
+                  "type": "enum",
+                  "name": "loadTypeEnum",
+                  "symbols": [
+                    "fromFile",
+                    "fromURL",
+                    "fromDB"
+                  ]
+                }
+              ],
+              "doc": "ENUM: do we get this from a file or from a URL (or other?)",
+              "$comment": "This list may need to be expanded."
+            },
+            {
+              "name": "loadFormat",
+              "type": [
+                {
+                  "type": "enum",
+                  "name": "loadFormatEnum",
+                  "symbols": [
+                    "JATS",
+                    "OtherXML",
+                    "HTML",
+                    "Text",
+                    "JSON",
+                    "Copernicus",
+                    "Elsevier",
+                    "IEEE",
+                    "Wiley"
+                  ]
+                }
+              ],
+              "doc": "ENUM:",
+              "$comment": "This list may need to be expanded."
+            },
+            {
+              "name": "loadLocation",
+              "type": [
+                "string"
+              ],
+              "doc": "If loadtype is fromFile, path to file; if fromURL, it's a URL"
+            },
+            {
+              "name": "masterRecord",
+              "type": [
+                "string"
+              ],
+              "doc": "Canonical record identifier with which this object is associated"
+            },
+            {
+              "name": "parsedTime",
+              "type": [
+                "string"
+              ],
+              "doc": "Timestamp for when parsing commenced."
+            },
+            {
+              "name": "recordOrigin",
+              "type": [
+                "string"
+              ],
+              "doc": "Provider of record (e.g. Publisher, STI, arXiv)"
+            },
+            {
+              "name": "UUID",
+              "type": [
+                "string"
+              ],
+              "doc": "Internal identifier UUID for this object"
+            }
+          ]
+        }
+      ],
+      "namespace": "ingest_data_model.recordData",
+      "doc": "Data schema for importing metadata into ADS pipeline"
+    },
+    {
+      "name": "relatedTo",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.relatedTo",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "RelatedTo",
+              "namespace": "ingest_data_model.relatedTo.RelatedTo",
+              "fields": [
+                {
+                  "name": "relationship",
+                  "type": [
+                    "null",
+                    {
+                      "type": "enum",
+                      "name": "relationshipEnum",
+                      "symbols": [
+                        "addenda",
+                        "ascl",
+                        "catalog",
+                        "collection",
+                        "commentary",
+                        "editions",
+                        "errata",
+                        "press",
+                        "proposal",
+                        "related",
+                        "report",
+                        "reprint",
+                        "retraction",
+                        "series",
+                        "supplement",
+                        "translation",
+                        "updated"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "relatedDocID",
+                  "type": [
+                    "null",
+                    "string"
+                  ],
+                  "doc": "raw string from publisher (e.g. doi)"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Array of RelatedTo.json objects"
+    },
+    {
+      "name": "editorialHistory",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "editorialHistoryRecord",
+          "fields": [
+            {
+              "name": "receivedDates",
+              "type": [
+                "null",
+                {
+                  "namespace": "ingest_data_model.editorialHistory.receivedDates",
+                  "type": "array",
+                  "items": [
+                    "null",
+                    "string"
+                  ]
+                }
+              ],
+              "doc": "papers can have more than one receivedDate"
+            },
+            {
+              "name": "revisedDates",
+              "type": [
+                "null",
+                {
+                  "namespace": "ingest_data_model.editorialHistory.revisedDates",
+                  "type": "array",
+                  "items": [
+                    "null",
+                    "string"
+                  ]
+                }
+              ],
+              "doc": "papers can have more than one revisedDate"
+            },
+            {
+              "name": "acceptedDate",
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          ]
+        }
+      ],
+      "namespace": "ingest_data_model.editorialHistory",
+      "doc": "Holds editorial history; papers can have multiple received/revised dates."
+    },
+    {
+      "name": "pubDate",
+      "type": [
+        {
+          "type": "record",
+          "name": "pubDateRecord",
+          "fields": [
+            {
+              "name": "electrDate",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "printDate",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "otherDate",
+              "type": [
+                "null",
+                {
+                  "namespace": "ingest_data_model.pubDate.otherDate",
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "record",
+                      "name": "otherDaterecord",
+                      "namespace": "ingest_data_model.pubDate.otherDate.otherDaterecord",
+                      "fields": [
+                        {
+                          "name": "otherDateType",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "otherDateValue",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "doc": "Array of date-like objects (e.g. 'submitted', 'revised', 'accepted')"
+            }
+          ]
+        }
+      ],
+      "namespace": "ingest_data_model.pubDate",
+      "doc": "Holds editorial history; papers can have multiple received/revised dates."
+    },
+    {
+      "name": "publication",
+      "type": [
+        {
+          "type": "record",
+          "name": "publicationRecord",
+          "fields": [
+            {
+              "name": "docType",
+              "type": [
+                "null",
+                {
+                  "type": "enum",
+                  "name": "docTypeEnum",
+                  "symbols": [
+                    "article",
+                    "thesis",
+                    "software",
+                    "book",
+                    "inbook",
+                    "proceedings",
+                    "inproceedings",
+                    "catalog",
+                    "data",
+                    "report",
+                    "proposal",
+                    "miscellaneous"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "pubName",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "confName",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "confLocation",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "confDates",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "confEditors",
+              "type": [
+                "null",
+                {
+                  "namespace": "ingest_data_model.publication.confEditors",
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "record",
+                      "name": "Contrib",
+                      "namespace": "ingest_data_model.publication.confEditors.Contrib",
+                      "fields": [
+                        {
+                          "name": "name",
+                          "type": [
+                            "null",
+                            {
+                              "type": "record",
+                              "name": "nameRecord",
+                              "fields": [
+                                {
+                                  "name": "surname",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "given_name",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "middle_name",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "prefix",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "suffix",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "pubraw",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "native_lang",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "collab",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "namespace": "ingest_data_model.publication.confEditors.Contrib.name"
+                        },
+                        {
+                          "name": "affiliation",
+                          "type": [
+                            "null",
+                            {
+                              "namespace": "ingest_data_model.publication.confEditors.Contrib.affiliation",
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "record",
+                                  "name": "Affil",
+                                  "namespace": "ingest_data_model.publication.confEditors.Contrib.affiliation.Affil",
+                                  "fields": [
+                                    {
+                                      "name": "affPubRaw",
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ],
+                                      "doc": "Affil string from publisher."
+                                    },
+                                    {
+                                      "name": "affPubID",
+                                      "type": [
+                                        "null",
+                                        {
+                                          "namespace": "ingest_data_model.publication.confEditors.Contrib.affiliation.Affil.affPubID",
+                                          "type": "array",
+                                          "items": [
+                                            {
+                                              "type": "record",
+                                              "name": "AffilID",
+                                              "namespace": "ingest_data_model.publication.confEditors.Contrib.affiliation.Affil.affPubID.AffilID",
+                                              "fields": [
+                                                {
+                                                  "name": "affID",
+                                                  "type": [
+                                                    "null",
+                                                    "string"
+                                                  ],
+                                                  "doc": "Affiliation identifier value"
+                                                },
+                                                {
+                                                  "name": "affIDType",
+                                                  "type": [
+                                                    "null",
+                                                    "string"
+                                                  ],
+                                                  "doc": "Affiliation identifier system (ROR, GRID, ADS etc...)"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "attrib",
+                          "type": [
+                            "null",
+                            {
+                              "type": "record",
+                              "name": "attribRecord",
+                              "fields": [
+                                {
+                                  "name": "collab",
+                                  "type": [
+                                    "null",
+                                    "boolean"
+                                  ]
+                                },
+                                {
+                                  "name": "deceased",
+                                  "type": [
+                                    "null",
+                                    "boolean"
+                                  ]
+                                },
+                                {
+                                  "name": "coauthor",
+                                  "type": [
+                                    "null",
+                                    "boolean"
+                                  ]
+                                },
+                                {
+                                  "name": "email",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "funding",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "orcid",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "namespace": "ingest_data_model.publication.confEditors.Contrib.attrib"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "confPID",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "publisher",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "issueNum",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "volumeNum",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "pubYear",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "bookSeries",
+              "type": [
+                "null",
+                {
+                  "type": "record",
+                  "name": "bookSeriesRecord",
+                  "fields": [
+                    {
+                      "name": "seriesName",
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    {
+                      "name": "seriesID",
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    {
+                      "name": "seriesDescription",
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "namespace": "ingest_data_model.publication.bookSeries"
+            },
+            {
+              "name": "ISSN",
+              "type": [
+                "null",
+                {
+                  "namespace": "ingest_data_model.publication.ISSN",
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "record",
+                      "name": "IssnType",
+                      "namespace": "ingest_data_model.publication.ISSN.IssnType",
+                      "fields": [
+                        {
+                          "name": "pubtype",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "issnString",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "isRefereed",
+              "type": [
+                "null",
+                "boolean"
+              ]
+            }
+          ]
+        }
+      ],
+      "namespace": "ingest_data_model.publication",
+      "$comments": "Contains what would go into the %J field in Classic"
+    },
+    {
+      "name": "persistentIDs",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.persistentIDs",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "PersistentID",
+              "namespace": "ingest_data_model.persistentIDs.PersistentID",
+              "fields": [
+                {
+                  "name": "Crossref",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "ISBN",
+                  "type": [
+                    "null",
+                    {
+                      "namespace": "ingest_data_model.persistentIDs.PersistentID.ISBN",
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "record",
+                          "name": "IsbnType",
+                          "namespace": "ingest_data_model.persistentIDs.PersistentID.ISBN.IsbnType",
+                          "fields": [
+                            {
+                              "name": "pubtype",
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            {
+                              "name": "issnString",
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "DOI",
+                  "type": [
+                    "null",
+                    "string"
+                  ],
+                  "$comment": "Borrowed from arxiv spec https://github.com/arXiv/arxiv-canonical/blob/develop/schema-extended/arxiv-extended.json"
+                },
+                {
+                  "name": "preprint",
+                  "type": [
+                    "null",
+                    {
+                      "type": "record",
+                      "name": "preprintRecord",
+                      "fields": [
+                        {
+                          "name": "source",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "identifier",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "namespace": "ingest_data_model.persistentIDs.PersistentID.preprint"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Array of PersistentID.json objects"
+    },
+    {
+      "name": "publisherIDs",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.publisherIDs",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "PublisherID",
+              "namespace": "ingest_data_model.publisherIDs.PublisherID",
+              "fields": [
+                {
+                  "name": "attribute",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "Identifier",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Array of PublisherID.json objects"
+    },
+    {
+      "name": "pagination",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "paginationRecord",
+          "fields": [
+            {
+              "name": "firstPage",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "lastPage",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "pageCount",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "pageRange",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "electronicID",
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          ]
+        }
+      ],
+      "namespace": "ingest_data_model.pagination",
+      "doc": "Data schema for importing metadata into ADS pipeline"
+    },
+    {
+      "name": "authors",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.authors",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "Contrib",
+              "namespace": "ingest_data_model.authors.Contrib",
+              "fields": [
+                {
+                  "name": "name",
+                  "type": [
+                    "null",
+                    {
+                      "type": "record",
+                      "name": "nameRecord",
+                      "fields": [
+                        {
+                          "name": "surname",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "given_name",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "middle_name",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "prefix",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "suffix",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "pubraw",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "native_lang",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "collab",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "namespace": "ingest_data_model.authors.Contrib.name"
+                },
+                {
+                  "name": "affiliation",
+                  "type": [
+                    "null",
+                    {
+                      "namespace": "ingest_data_model.authors.Contrib.affiliation",
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "record",
+                          "name": "Affil",
+                          "namespace": "ingest_data_model.authors.Contrib.affiliation.Affil",
+                          "fields": [
+                            {
+                              "name": "affPubRaw",
+                              "type": [
+                                "null",
+                                "string"
+                              ],
+                              "doc": "Affil string from publisher."
+                            },
+                            {
+                              "name": "affPubID",
+                              "type": [
+                                "null",
+                                {
+                                  "namespace": "ingest_data_model.authors.Contrib.affiliation.Affil.affPubID",
+                                  "type": "array",
+                                  "items": [
+                                    {
+                                      "type": "record",
+                                      "name": "AffilID",
+                                      "namespace": "ingest_data_model.authors.Contrib.affiliation.Affil.affPubID.AffilID",
+                                      "fields": [
+                                        {
+                                          "name": "affID",
+                                          "type": [
+                                            "null",
+                                            "string"
+                                          ],
+                                          "doc": "Affiliation identifier value"
+                                        },
+                                        {
+                                          "name": "affIDType",
+                                          "type": [
+                                            "null",
+                                            "string"
+                                          ],
+                                          "doc": "Affiliation identifier system (ROR, GRID, ADS etc...)"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "attrib",
+                  "type": [
+                    "null",
+                    {
+                      "type": "record",
+                      "name": "attribRecord",
+                      "fields": [
+                        {
+                          "name": "collab",
+                          "type": [
+                            "null",
+                            "boolean"
+                          ]
+                        },
+                        {
+                          "name": "deceased",
+                          "type": [
+                            "null",
+                            "boolean"
+                          ]
+                        },
+                        {
+                          "name": "coauthor",
+                          "type": [
+                            "null",
+                            "boolean"
+                          ]
+                        },
+                        {
+                          "name": "email",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "funding",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "orcid",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "namespace": "ingest_data_model.authors.Contrib.attrib"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Array of Contrib objects"
+    },
+    {
+      "name": "otherContributor",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.otherContributor",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "OtherContrib",
+              "namespace": "ingest_data_model.otherContributor.OtherContrib",
+              "fields": [
+                {
+                  "name": "contrib",
+                  "type": [
+                    "null",
+                    {
+                      "type": "record",
+                      "name": "contribRecord",
+                      "fields": [
+                        {
+                          "name": "name",
+                          "type": [
+                            "null",
+                            {
+                              "type": "record",
+                              "name": "nameRecord",
+                              "fields": [
+                                {
+                                  "name": "surname",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "given_name",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "middle_name",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "prefix",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "suffix",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "pubraw",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "native_lang",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "collab",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "namespace": "ingest_data_model.otherContributor.OtherContrib.contrib.name"
+                        },
+                        {
+                          "name": "affiliation",
+                          "type": [
+                            "null",
+                            {
+                              "namespace": "ingest_data_model.otherContributor.OtherContrib.contrib.affiliation",
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "record",
+                                  "name": "Affil",
+                                  "namespace": "ingest_data_model.otherContributor.OtherContrib.contrib.affiliation.Affil",
+                                  "fields": [
+                                    {
+                                      "name": "affPubRaw",
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ],
+                                      "doc": "Affil string from publisher."
+                                    },
+                                    {
+                                      "name": "affPubID",
+                                      "type": [
+                                        "null",
+                                        {
+                                          "namespace": "ingest_data_model.otherContributor.OtherContrib.contrib.affiliation.Affil.affPubID",
+                                          "type": "array",
+                                          "items": [
+                                            {
+                                              "type": "record",
+                                              "name": "AffilID",
+                                              "namespace": "ingest_data_model.otherContributor.OtherContrib.contrib.affiliation.Affil.affPubID.AffilID",
+                                              "fields": [
+                                                {
+                                                  "name": "affID",
+                                                  "type": [
+                                                    "null",
+                                                    "string"
+                                                  ],
+                                                  "doc": "Affiliation identifier value"
+                                                },
+                                                {
+                                                  "name": "affIDType",
+                                                  "type": [
+                                                    "null",
+                                                    "string"
+                                                  ],
+                                                  "doc": "Affiliation identifier system (ROR, GRID, ADS etc...)"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "attrib",
+                          "type": [
+                            "null",
+                            {
+                              "type": "record",
+                              "name": "attribRecord",
+                              "fields": [
+                                {
+                                  "name": "collab",
+                                  "type": [
+                                    "null",
+                                    "boolean"
+                                  ]
+                                },
+                                {
+                                  "name": "deceased",
+                                  "type": [
+                                    "null",
+                                    "boolean"
+                                  ]
+                                },
+                                {
+                                  "name": "coauthor",
+                                  "type": [
+                                    "null",
+                                    "boolean"
+                                  ]
+                                },
+                                {
+                                  "name": "email",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "funding",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "name": "orcid",
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "namespace": "ingest_data_model.otherContributor.OtherContrib.contrib.attrib"
+                        }
+                      ]
+                    }
+                  ],
+                  "namespace": "ingest_data_model.otherContributor.OtherContrib.contrib",
+                  "doc": "Describes a person in any role (author, editor, conf/OC member, etc)"
+                },
+                {
+                  "name": "role",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Array of Contrib/role pairs"
+    },
+    {
+      "name": "title",
+      "type": [
+        {
+          "namespace": "ingest_data_model.title",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "Title",
+              "namespace": "ingest_data_model.title.Title",
+              "fields": [
+                {
+                  "name": "textEnglish",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "textNative",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "langNative",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "textNotes",
+                  "type": [
+                    "null",
+                    {
+                      "namespace": "ingest_data_model.title.Title.textNotes",
+                      "type": "array",
+                      "items": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  ],
+                  "doc": "Footnotes and xrefs associated with title(s)"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Array of Title.json objects for multilingual support"
+    },
+    {
+      "name": "subtitle",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.subtitle",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "Title",
+              "namespace": "ingest_data_model.subtitle.Title",
+              "fields": [
+                {
+                  "name": "textEnglish",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "textNative",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "langNative",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "textNotes",
+                  "type": [
+                    "null",
+                    {
+                      "namespace": "ingest_data_model.subtitle.Title.textNotes",
+                      "type": "array",
+                      "items": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  ],
+                  "doc": "Footnotes and xrefs associated with title(s)"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Array of Title.json objects for multilingual support"
+    },
+    {
+      "name": "abstract",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "abstractRecord",
+          "fields": [
+            {
+              "name": "textEnglish",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "textNative",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "langNative",
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          ]
+        }
+      ],
+      "namespace": "ingest_data_model.abstract"
+    },
+    {
+      "name": "comments",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.comments",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "Comment",
+              "namespace": "ingest_data_model.comments.Comment",
+              "fields": [
+                {
+                  "name": "commentOrigin",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "commentText",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Comments from authors, etc."
+    },
+    {
+      "name": "acknowledgements",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Acknowledgements, if fielded separately from body"
+    },
+    {
+      "name": "references",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.references",
+          "type": "array",
+          "items": [
+            "null",
+            "string"
+          ]
+        }
+      ],
+      "doc": "List of references in free text format"
+    },
+    {
+      "name": "backmatter",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.backmatter",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "backmatterrecord",
+              "namespace": "ingest_data_model.backmatter.backmatterrecord",
+              "fields": [
+                {
+                  "name": "backType",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "language",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "body",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Appendices, Supplementary material."
+    },
+    {
+      "name": "astronomicalObjects",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.astronomicalObjects",
+          "type": "array",
+          "items": [
+            "null",
+            "string"
+          ]
+        }
+      ],
+      "doc": "List of astronomical objects in free text format"
+    },
+    {
+      "name": "esources",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.esources",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "ESource",
+              "namespace": "ingest_data_model.esources.ESource",
+              "fields": [
+                {
+                  "name": "source",
+                  "type": [
+                    "null",
+                    {
+                      "type": "enum",
+                      "name": "sourceEnum",
+                      "symbols": [
+                        "pub_html",
+                        "pub_pdf",
+                        "eprint_pdf",
+                        "eprint_html",
+                        "author_pdf",
+                        "author_html",
+                        "ads_scan",
+                        "ads_pdf"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "location",
+                  "type": [
+                    "null",
+                    "string"
+                  ],
+                  "$comment": "URL, URI, DOI, etc"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Array of ESource.json objects"
+    },
+    {
+      "name": "dataLinks",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.dataLinks",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "DataLink",
+              "namespace": "ingest_data_model.dataLinks.DataLink",
+              "fields": [
+                {
+                  "name": "title",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "identifier",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "location",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "dataType",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "comment",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Array of DataLink.json objects"
+    },
+    {
+      "name": "doctype",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "doctypeEnum",
+          "symbols": [
+            "article",
+            "eprint",
+            "phdthesis",
+            "mastersthesis",
+            "book",
+            "inbook",
+            "proceedings",
+            "inproceedings",
+            "software",
+            "talk",
+            "abstract",
+            "proposal",
+            "pressrelease",
+            "circular",
+            "newsletter",
+            "catalog",
+            "misc",
+            "techreport",
+            "nonarticle",
+            "dataset"
+          ]
+        }
+      ],
+      "doc": "This will only be required if we set doctype at parsing"
+    },
+    {
+      "name": "keywords",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.keywords",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "Keyword",
+              "namespace": "ingest_data_model.keywords.Keyword",
+              "fields": [
+                {
+                  "name": "keyString",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "keySystem",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "keyID",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Array of Keyword.json objects"
+    },
+    {
+      "name": "copyright",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "copyrightRecord",
+          "fields": [
+            {
+              "name": "status",
+              "type": [
+                "null",
+                "boolean"
+              ]
+            },
+            {
+              "name": "statement",
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          ]
+        }
+      ],
+      "namespace": "ingest_data_model.copyright"
+    },
+    {
+      "name": "openAccess",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "openAccessRecord",
+          "fields": [
+            {
+              "name": "open",
+              "type": [
+                "null",
+                "boolean"
+              ]
+            },
+            {
+              "name": "license",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "licenseURL",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "preprint",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "startDate",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "endDate",
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            {
+              "name": "embargoLength",
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          ]
+        }
+      ],
+      "namespace": "ingest_data_model.openAccess",
+      "doc": "Publisher-provided OA data",
+      "$comment": "Some of these may get removed if they're not received with each metadata file/object (e.g. embargo)"
+    },
+    {
+      "name": "pubnote",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "funding",
+      "type": [
+        "null",
+        {
+          "namespace": "ingest_data_model.funding",
+          "type": "array",
+          "items": [
+            {
+              "type": "record",
+              "name": "Funder",
+              "namespace": "ingest_data_model.funding.Funder",
+              "fields": [
+                {
+                  "name": "agencyname",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                {
+                  "name": "agencyid",
+                  "type": [
+                    "null",
+                    {
+                      "type": "record",
+                      "name": "agencyidRecord",
+                      "fields": [
+                        {
+                          "name": "idschema",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        {
+                          "name": "idvalue",
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "namespace": "ingest_data_model.funding.Funder.agencyid"
+                },
+                {
+                  "name": "awardnumber",
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "doc": "Array of Funder.json objects"
+    },
+    {
+      "name": "version",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  ]
+}

@@ -12,7 +12,7 @@ from SciXPipelineUtils.s3_methods import load_s3_providers
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from TEMPLATE import db
+from Augment_Affil import db
 
 
 def init_pipeline(proj_home):
@@ -27,9 +27,9 @@ def init_pipeline(proj_home):
     consumer: The kafka consumer for the pipeline
     producer: The kafka producer for the pipeline
     """
-    app = TEMPLATE_APP(proj_home)
+    app = AUGMENT_AFFIL_APP(proj_home)
     app.schema_client = SchemaRegistryClient({"url": app.config.get("SCHEMA_REGISTRY_URL")})
-    schema = utils.get_schema(app, app.schema_client, app.config.get("TEMPLATE_INPUT_SCHEMA"))
+    schema = utils.get_schema(app, app.schema_client, app.config.get("AUGMENT_AFFIL_INPUT_SCHEMA"))
     consumer = AvroConsumer(
         {
             "bootstrap.servers": app.config.get("KAFKA_BROKER"),
@@ -39,18 +39,18 @@ def init_pipeline(proj_home):
         },
         reader_value_schema=schema,
     )
-    consumer.subscribe([app.config.get("TEMPLATE_INPUT_TOPIC", "TEMPLATE")])
+    consumer.subscribe([app.config.get("AUGMENT_AFFIL_INPUT_TOPIC", "AUGMENT_AFFIL")])
     producer = AvroProducer(
         {
             "bootstrap.servers": app.config.get("KAFKA_BROKER"),
             "schema.registry.url": app.config.get("SCHEMA_REGISTRY_URL"),
         }
     )
-    app.logger.info("Starting TEMPLATE APP")
+    app.logger.info("Starting AUGMENT AFFIL APP")
     app.template_consumer(consumer, producer)
 
 
-class TEMPLATE_APP:
+class AUGMENT_AFFIL_APP:
     @contextmanager
     def session_scope(self):
         """Provide a transactional scope for postgres."""

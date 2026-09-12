@@ -1,0 +1,140 @@
+{
+  "$data_model_vesion": "v1.0.0",
+  "type": "record",
+  "name": "AugmentAffilDataModel",
+  "fields": [
+    {
+      "name": "aff",
+      "type": [
+        {
+          "namespace": "AugmentAffilDataModel.aff",
+          "type": "array",
+          "items": [
+            "null",
+            "string"
+          ]
+        }
+      ],
+      "doc": "Array of raw affil strings from the pub, one per author"
+    },
+    {
+      "name": "aff_abbrev",
+      "type": [
+        "null",
+        {
+          "namespace": "AugmentAffilDataModel.aff_abbrev",
+          "type": "array",
+          "items": [
+            "null",
+            "string"
+          ]
+        }
+      ],
+      "doc": "Array of matched ADS canonical abbreviations"
+    },
+    {
+      "name": "aff_country",
+      "type": [
+        "null",
+        {
+          "namespace": "AugmentAffilDataModel.aff_country",
+          "type": "array",
+          "items": [
+            "null",
+            "string"
+          ]
+        }
+      ],
+      "doc": "Array of host countries of matched ADS affils"
+    },
+    {
+      "name": "aff_canonical",
+      "type": [
+        "null",
+        {
+          "namespace": "AugmentAffilDataModel.aff_canonical",
+          "type": "array",
+          "items": [
+            "null",
+            "string"
+          ]
+        }
+      ],
+      "doc": "Array of matched ADS canonical names"
+    },
+    {
+      "name": "aff_facet_hier",
+      "type": [
+        "null",
+        {
+          "namespace": "AugmentAffilDataModel.aff_facet_hier",
+          "type": "array",
+          "items": [
+            "null",
+            "string"
+          ]
+        }
+      ],
+      "doc": "Array of affil facet data for the UI"
+    },
+    {
+      "name": "aff_id",
+      "type": [
+        "null",
+        {
+          "namespace": "AugmentAffilDataModel.aff_id",
+          "type": "array",
+          "items": [
+            "null",
+            "string"
+          ]
+        }
+      ],
+      "doc": "Array of matched ADS affiliation IDs"
+    },
+    {
+      "name": "aff_iso_country",
+      "type": [
+        "null",
+        {
+          "namespace": "AugmentAffilDataModel.aff_iso_country",
+          "type": "array",
+          "items": [
+            "null",
+            "string"
+          ]
+        }
+      ],
+      "doc": "Array of host country ISO Codes of matched ADS affils"
+    },
+    {
+      "name": "author",
+      "type": [
+        {
+          "namespace": "AugmentAffilDataModel.author",
+          "type": "array",
+          "items": [
+            "null",
+            "string"
+          ]
+        }
+      ],
+      "doc": "Array of author names from the record"
+    },
+    {
+      "name": "bibcode",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "ADS Bibliographic Code for the record (if any)"
+    },
+    {
+      "name": "scix_id",
+      "type": [
+        "string"
+      ],
+      "doc": "SciX Public Identifier for the record"
+    }
+  ]
+}
