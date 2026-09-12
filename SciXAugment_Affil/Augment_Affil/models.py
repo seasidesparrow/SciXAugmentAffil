@@ -1,9 +1,9 @@
 import enum
-import uuid
 
+from SciXPipelineUtils.scix_uuid import scix_uuid as uuid
 from sqlalchemy import Column, DateTime, Enum, Integer, String, Text, Boolean, Index
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
@@ -17,8 +17,6 @@ class AffilInst(Base):
     inst_abbreviation = Column(String, nullable=False)
     inst_country = Column(String, nullable=False)
     inst_iso_country = Column(String, nullable=False)
-    # in place of location, we could consider using GeoAlchemy2 here
-    # especially if we can get lat-lon from ROR
     inst_location = Column(String, nullable=True)
     inst_rorid = Column(String, nullable=True)
     inst_notes = Column(Text, nullable=True)

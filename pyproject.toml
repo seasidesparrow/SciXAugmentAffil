@@ -1,11 +1,11 @@
 [project]
-name = "SciXAugment_Affil"
-version = "0.0.1"
-description = "The primary Augment_Affil unit for the new NASA Science Explorer (NASA SciX) backoffice architecture"
+name = "SciXAugmentAffil"
+version = "0.9.0"
+description = "The primary Augment Affiliation unit for the new NASA Science Explorer (NASA SciX) backoffice architecture"
 authors = [{ name = "Matthew Templeton", email = "ads@cfa.harvard.edu"}]
 license = { text = "GPL-3.0" }
 readme = "README.md"
-#repository = "https://github.com/adsabs/SciXAugment_Affil_Pipeline"
+repository = "https://github.com/adsabs/SciXAugmentAffil"
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
@@ -36,7 +36,7 @@ dependencies = [
 ]
 
 [project.urls]
-Source = "https://github.com/adsabs/SciXAugment_Affil_Pipeline"
+Source = "https://github.com/adsabs/SciXAugmentAffil"
 
 [project.optional-dependencies]
 dev = [
