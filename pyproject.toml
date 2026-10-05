@@ -1,6 +1,6 @@
 [project]
 name = "SciXAugmentAffil"
-version = "0.9.0"
+version = "0.1.0"
 description = "The primary Augment Affiliation unit for the new NASA Science Explorer (NASA SciX) backoffice architecture"
 authors = [{ name = "Matthew Templeton", email = "ads@cfa.harvard.edu"}]
 license = { text = "GPL-3.0" }
@@ -26,11 +26,11 @@ dependencies = [
     'alembic==1.8.1',
     'sqlalchemy==2.0.21',
     'psycopg2==2.9.5',
-    'grpcio==1.50.0',
+    'grpcio==1.84.0',
     'six==1.16.0',
     'python-dateutil==2.8.1',
     'requests==2.29.0',
-    'SciXPipelineUtils @ git+https://github.com/adsabs/SciXPipelineUtils.git@04776d498e3b9c87149c62dcb5a20d0dc9cf7851',
+    'SciXPipelineUtils @ git+https://github.com/seasidesparrow/SciXPipelineUtils.git@ff4087159f61ff88cdd9fa5e6aae743cfb607341',
     'sphinx-rtd-theme',
 
 ]
@@ -54,7 +54,7 @@ dev = [
     'pytest-cookies==0.6.1',
     'pytest-asyncio==0.21.0',
     'requests_mock==1.1.0',
-    'grpcio-tools==1.50.0',
+    'grpcio-tools==1.84.0',
     'moto==4.1.3',
     'httpretty==1.1.4',
     'sphinx',
