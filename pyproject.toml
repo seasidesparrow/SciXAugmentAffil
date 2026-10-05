@@ -15,7 +15,7 @@ classifiers = [
 ]
 
 packages = [
-    "SciXAugment_Affil",
+    "SciXAugmentAffil",
 ]
 
 dependencies = [
