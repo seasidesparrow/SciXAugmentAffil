@@ -1,10 +1,14 @@
+import os
 import datetime
-import logging as logger
+from SciXPipelineUtils.utils import load_config, setup_logging
 
 import Augment_Affil.models as models
 
-logger.basicConfig(level=logger.DEBUG)
-
+proj_home = os.path.realpath(os.path.dirname(__file__))
+config = load_config(proj_home=proj_home)
+logger = setup_logging("run.py", proj_home=proj_home,
+                       level=config.get("LOGGING_LEVEL", "INFO"),
+                       attach_stdout=config.get("LOG_STDOUT", False))
 
 def write_status_redis(redis_instance, status):
     logger.debug("Publishing status: {}".format(status))
